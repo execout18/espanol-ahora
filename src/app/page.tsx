@@ -7,6 +7,7 @@ import TodaySession from "@/components/TodaySession";
 import QuickCapture from "@/components/QuickCapture";
 import SentenceDrill from "@/components/SentenceDrill";
 import TutorChat from "@/components/TutorChat";
+import ListeningDrill from "@/components/ListeningDrill";
 import {
   getStreakStats,
   getDaysUntilTrip,
@@ -18,7 +19,7 @@ import {
   SessionType,
 } from "@/lib/storage";
 
-type Panel = "dashboard" | "drill" | "tutor";
+type Panel = "dashboard" | "drill" | "tutor" | "listening";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -50,6 +51,7 @@ export default function Home() {
   const handleLaunch = (component: SessionType) => {
     if (component === "drill") setPanel("drill");
     else if (component === "tutor") setPanel("tutor");
+    else if (component === "listening") setPanel("listening");
   };
 
   if (!mounted) {
@@ -154,6 +156,12 @@ export default function Home() {
       {panel === "tutor" && (
         <section className="max-w-3xl mx-auto">
           <TutorChat onComplete={refresh} />
+        </section>
+      )}
+
+      {panel === "listening" && (
+        <section className="max-w-2xl mx-auto">
+          <ListeningDrill onComplete={refresh} />
         </section>
       )}
 

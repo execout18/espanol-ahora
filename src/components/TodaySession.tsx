@@ -26,6 +26,14 @@ const COMPONENTS: Array<{
     externalUrl: "https://spanishthenaturalway.app.clientclub.net/courses/library-v2",
   },
   {
+    id: "listening",
+    label: "Listening Drill",
+    description: "Native speed audio · transcribe what you hear",
+    minutes: 10,
+    emoji: "👂",
+    launchable: true,
+  },
+  {
     id: "drill",
     label: "Sentence Drill",
     description: "EN → ES production · scored",

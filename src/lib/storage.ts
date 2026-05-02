@@ -12,7 +12,7 @@ const STORAGE_KEYS = {
   LAST_SESSION_TYPE: "ea_last_session", // for resume
 } as const;
 
-export type SessionType = "joao" | "drill" | "tutor" | "capture";
+export type SessionType = "joao" | "drill" | "tutor" | "capture" | "listening";
 
 export interface DailySession {
   date: string; // YYYY-MM-DD
