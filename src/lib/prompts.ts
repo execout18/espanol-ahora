@@ -1,18 +1,18 @@
-// Sentence drill prompts — seeded for execout18
-// Categories matched to actual life: family, work (M&A/legal), BA travel, daily, deal-making
+// Sentence drill prompts — Mexican Spanish as default
+// Argentine variant included on prompts where it diverges meaningfully (for BA prep mode later)
 
 export type Category = "family" | "work" | "ba_travel" | "daily" | "dealmaking";
-export type Difficulty = 1 | 2 | 3; // 1=easy, 2=medium, 3=hard
+export type Difficulty = 1 | 2 | 3;
 
 export interface Prompt {
   id: string;
   english: string;
-  spanish: string; // accepted "good" answer
-  alternates?: string[]; // also-acceptable variations
+  spanish: string; // Mexican Spanish default
+  alternates?: string[]; // also-acceptable
   category: Category;
   difficulty: Difficulty;
-  notes?: string; // grammar/vocab notes shown after answering
-  argentine?: string; // Rioplatense version (vos, etc.) shown when BA mode is active
+  notes?: string;
+  argentine?: string; // shown when BA mode active
 }
 
 export const PROMPTS: Prompt[] = [
@@ -21,17 +21,16 @@ export const PROMPTS: Prompt[] = [
     id: "f1",
     english: "Put your shoes on.",
     spanish: "Ponte los zapatos.",
-    alternates: ["Pónte los zapatos."],
     argentine: "Ponete los zapatos.",
     category: "family",
     difficulty: 1,
-    notes: "Imperative with reflexive. In Argentina they use 'ponete' (vos form).",
+    notes: "Imperative + reflexive. Mexico: ponte (tú). Argentina: ponete (vos).",
   },
   {
     id: "f2",
     english: "What's for dinner?",
-    spanish: "¿Qué hay para cenar?",
-    alternates: ["¿Qué vamos a cenar?"],
+    spanish: "¿Qué hay de cenar?",
+    alternates: ["¿Qué hay para cenar?", "¿Qué vamos a cenar?"],
     category: "family",
     difficulty: 1,
   },
@@ -45,10 +44,11 @@ export const PROMPTS: Prompt[] = [
   {
     id: "f4",
     english: "Did you brush your teeth?",
-    spanish: "¿Te cepillaste los dientes?",
-    alternates: ["¿Te lavaste los dientes?"],
+    spanish: "¿Te lavaste los dientes?",
+    alternates: ["¿Te cepillaste los dientes?"],
     category: "family",
     difficulty: 2,
+    notes: "In Mexico, 'lavarse los dientes' is more common than 'cepillarse.'",
   },
   {
     id: "f5",
@@ -73,13 +73,62 @@ export const PROMPTS: Prompt[] = [
     argentine: "Estoy orgulloso de vos.",
     category: "family",
     difficulty: 1,
-    notes: "Use 'orgullosa' if the speaker is female. 'De vos' in Argentina, 'de ti' elsewhere.",
+    notes: "Use 'orgullosa' if speaker is female. 'De ti' in Mexico, 'de vos' in Argentina.",
   },
   {
     id: "f8",
     english: "Don't forget your backpack.",
     spanish: "No olvides tu mochila.",
-    argentine: "No te olvides la mochila.",
+    alternates: ["No te olvides la mochila."],
+    category: "family",
+    difficulty: 2,
+  },
+  {
+    id: "f9",
+    english: "Are you hungry?",
+    spanish: "¿Tienes hambre?",
+    argentine: "¿Tenés hambre?",
+    category: "family",
+    difficulty: 1,
+  },
+  {
+    id: "f10",
+    english: "I love you.",
+    spanish: "Te quiero.",
+    alternates: ["Te amo."],
+    category: "family",
+    difficulty: 1,
+    notes: "'Te quiero' = everyday warm love (family, kids). 'Te amo' = deeper romantic. With Charlotte: 'te quiero.'",
+  },
+  {
+    id: "f11",
+    english: "Come here, sweetheart.",
+    spanish: "Ven acá, mi amor.",
+    alternates: ["Ven aquí, mi amor.", "Ven, cariño."],
+    category: "family",
+    difficulty: 1,
+    notes: "'Mi amor' is the most common term of endearment for kids and partners in Mexico.",
+  },
+  {
+    id: "f12",
+    english: "How was your day?",
+    spanish: "¿Cómo estuvo tu día?",
+    alternates: ["¿Qué tal tu día?"],
+    category: "family",
+    difficulty: 1,
+  },
+  {
+    id: "f13",
+    english: "Let's go to the park tomorrow.",
+    spanish: "Vamos al parque mañana.",
+    category: "family",
+    difficulty: 1,
+  },
+  {
+    id: "f14",
+    english: "She doesn't want to eat her vegetables.",
+    spanish: "No quiere comerse las verduras.",
+    alternates: ["No quiere comer sus verduras."],
     category: "family",
     difficulty: 2,
   },
@@ -103,8 +152,8 @@ export const PROMPTS: Prompt[] = [
   {
     id: "w3",
     english: "The deal closes next month.",
-    spanish: "La operación se cierra el mes que viene.",
-    alternates: ["El trato se cierra el próximo mes.", "La transacción se cierra el mes que viene."],
+    spanish: "La operación se cierra el próximo mes.",
+    alternates: ["El trato se cierra el próximo mes.", "La transacción se cierra el próximo mes."],
     category: "work",
     difficulty: 2,
   },
@@ -125,28 +174,47 @@ export const PROMPTS: Prompt[] = [
   {
     id: "w6",
     english: "The valuation came in lower than expected.",
-    spanish: "La valoración resultó más baja de lo esperado.",
-    alternates: ["La valuación fue más baja de lo esperado."],
+    spanish: "La valuación resultó más baja de lo esperado.",
+    alternates: ["La valoración fue más baja de lo esperado."],
     category: "work",
     difficulty: 3,
+    notes: "In Mexico, 'valuación' is more common than 'valoración' for financial valuations.",
   },
   {
     id: "w7",
     english: "I have a meeting in twenty minutes.",
-    spanish: "Tengo una reunión en veinte minutos.",
+    spanish: "Tengo una junta en veinte minutos.",
+    alternates: ["Tengo una reunión en veinte minutos."],
     category: "work",
     difficulty: 1,
+    notes: "'Junta' is the everyday Mexican word for meeting; 'reunión' is more formal/general.",
   },
   {
     id: "w8",
     english: "Can you send me the documents by Friday?",
-    spanish: "¿Me puedes enviar los documentos para el viernes?",
+    spanish: "¿Me puedes mandar los documentos para el viernes?",
+    alternates: ["¿Me puedes enviar los documentos para el viernes?"],
     argentine: "¿Me podés mandar los documentos para el viernes?",
     category: "work",
     difficulty: 2,
   },
+  {
+    id: "w9",
+    english: "I'll get back to you tomorrow.",
+    spanish: "Te respondo mañana.",
+    alternates: ["Te contesto mañana."],
+    category: "work",
+    difficulty: 1,
+  },
+  {
+    id: "w10",
+    english: "We didn't reach an agreement.",
+    spanish: "No llegamos a un acuerdo.",
+    category: "work",
+    difficulty: 2,
+  },
 
-  // ---------- BA TRAVEL ----------
+  // ---------- BA TRAVEL (still useful for the trip — kept Mexican neutral, Argentine variants tagged) ----------
   {
     id: "ba1",
     english: "Take me to Palermo, please.",
@@ -154,7 +222,6 @@ export const PROMPTS: Prompt[] = [
     argentine: "Lleváme a Palermo, por favor.",
     category: "ba_travel",
     difficulty: 1,
-    notes: "Standard usted form vs. Argentine vos imperative.",
   },
   {
     id: "ba2",
@@ -163,16 +230,17 @@ export const PROMPTS: Prompt[] = [
     alternates: ["¿Cuánto sale?"],
     category: "ba_travel",
     difficulty: 1,
-    notes: "In Argentina '¿Cuánto sale?' is more common conversationally.",
+    notes: "In Argentina, '¿Cuánto sale?' is the conversational default.",
   },
   {
     id: "ba3",
     english: "I'll have the steak, medium rare.",
-    spanish: "Me trae el bife, jugoso.",
-    alternates: ["Voy a pedir el bife, jugoso."],
+    spanish: "Quiero el bistec término medio rojo.",
+    alternates: ["Me da el bistec, término medio rojo."],
+    argentine: "Me trae el bife, jugoso.",
     category: "ba_travel",
     difficulty: 2,
-    notes: "In Argentina: 'bife' for steak. 'Jugoso' = juicy/medium-rare. 'A punto' = medium.",
+    notes: "Mexico: 'bistec, término medio rojo.' Argentina: 'bife, jugoso.' Different words, same dish.",
   },
   {
     id: "ba4",
@@ -181,7 +249,7 @@ export const PROMPTS: Prompt[] = [
     argentine: "¿Dónde está la estación de subte más cercana?",
     category: "ba_travel",
     difficulty: 2,
-    notes: "In BA the subway is called 'el subte' (short for subterráneo).",
+    notes: "Mexico City: 'metro.' Buenos Aires: 'subte.'",
   },
   {
     id: "ba5",
@@ -193,11 +261,11 @@ export const PROMPTS: Prompt[] = [
   {
     id: "ba6",
     english: "Can you speak more slowly, please?",
-    spanish: "¿Puede hablar más despacio, por favor?",
+    spanish: "¿Puedes hablar más despacio, por favor?",
     argentine: "¿Podés hablar más despacio, por favor?",
     category: "ba_travel",
     difficulty: 1,
-    notes: "Single most useful sentence for the trip. Memorize.",
+    notes: "Single most useful sentence for any trip. Memorize.",
   },
   {
     id: "ba7",
@@ -206,7 +274,6 @@ export const PROMPTS: Prompt[] = [
     argentine: "Estoy acá por mi cumpleaños.",
     category: "ba_travel",
     difficulty: 1,
-    notes: "Argentines say 'acá' more than 'aquí'.",
   },
   {
     id: "ba8",
@@ -225,9 +292,9 @@ export const PROMPTS: Prompt[] = [
   },
   {
     id: "ba10",
-    english: "I'd like a glass of Malbec.",
-    spanish: "Quisiera una copa de Malbec.",
-    alternates: ["Me trae una copa de Malbec, por favor."],
+    english: "I'd like a glass of red wine.",
+    spanish: "Quisiera una copa de vino tinto.",
+    alternates: ["Me da una copa de vino tinto, por favor."],
     category: "ba_travel",
     difficulty: 2,
   },
@@ -248,15 +315,16 @@ export const PROMPTS: Prompt[] = [
     alternates: ["Olvidé hacerlo."],
     category: "daily",
     difficulty: 2,
-    notes: "'Se me olvidó' is more natural — literally 'it forgot itself to me.'",
+    notes: "'Se me olvidó' = 'it forgot itself to me' — very natural in Mexican Spanish.",
   },
   {
     id: "d3",
     english: "I'm running late.",
     spanish: "Voy tarde.",
-    alternates: ["Llego tarde."],
+    alternates: ["Llego tarde.", "Se me hizo tarde."],
     category: "daily",
     difficulty: 1,
+    notes: "'Se me hizo tarde' is the most natural Mexican phrasing.",
   },
   {
     id: "d4",
@@ -270,6 +338,7 @@ export const PROMPTS: Prompt[] = [
     id: "d5",
     english: "I had a long day.",
     spanish: "Tuve un día largo.",
+    alternates: ["Fue un día largo."],
     category: "daily",
     difficulty: 1,
   },
@@ -277,7 +346,7 @@ export const PROMPTS: Prompt[] = [
     id: "d6",
     english: "I haven't decided yet.",
     spanish: "Todavía no he decidido.",
-    alternates: ["Aún no lo he decidido.", "Todavía no decidí."],
+    alternates: ["Aún no lo he decidido.", "Todavía no decido."],
     category: "daily",
     difficulty: 2,
   },
@@ -296,8 +365,55 @@ export const PROMPTS: Prompt[] = [
     category: "daily",
     difficulty: 1,
   },
+  {
+    id: "d9",
+    english: "I'm tired.",
+    spanish: "Estoy cansado.",
+    category: "daily",
+    difficulty: 1,
+  },
+  {
+    id: "d10",
+    english: "What time is it?",
+    spanish: "¿Qué hora es?",
+    category: "daily",
+    difficulty: 1,
+  },
+  {
+    id: "d11",
+    english: "I don't understand.",
+    spanish: "No entiendo.",
+    category: "daily",
+    difficulty: 1,
+  },
+  {
+    id: "d12",
+    english: "Can you repeat that?",
+    spanish: "¿Puedes repetir?",
+    argentine: "¿Podés repetir?",
+    category: "daily",
+    difficulty: 1,
+  },
+  {
+    id: "d13",
+    english: "Sounds good.",
+    spanish: "Suena bien.",
+    alternates: ["Está bien.", "Va."],
+    category: "daily",
+    difficulty: 1,
+    notes: "Mexico: 'va' is super common as a casual 'OK / sounds good.'",
+  },
+  {
+    id: "d14",
+    english: "What's up?",
+    spanish: "¿Qué onda?",
+    alternates: ["¿Qué tal?", "¿Cómo va todo?"],
+    category: "daily",
+    difficulty: 1,
+    notes: "'¿Qué onda?' is peak Mexican casual greeting.",
+  },
 
-  // ---------- DEALMAKING / NEGOTIATION ----------
+  // ---------- DEALMAKING ----------
   {
     id: "dm1",
     english: "We need to find a fair price.",
@@ -311,7 +427,7 @@ export const PROMPTS: Prompt[] = [
     spanish: "Trato hecho.",
     category: "dealmaking",
     difficulty: 1,
-    notes: "Universal phrase. Use to close anything from negotiations to a bet with your daughter.",
+    notes: "Universal closer. Use for everything from contracts to bedtime negotiations with Charlotte.",
   },
   {
     id: "dm3",
@@ -343,79 +459,12 @@ export const PROMPTS: Prompt[] = [
     category: "dealmaking",
     difficulty: 3,
   },
-
-  // Family extra
-  {
-    id: "f9",
-    english: "Are you hungry?",
-    spanish: "¿Tienes hambre?",
-    argentine: "¿Tenés hambre?",
-    category: "family",
-    difficulty: 1,
-  },
-  {
-    id: "f10",
-    english: "I love you.",
-    spanish: "Te amo.",
-    alternates: ["Te quiero."],
-    category: "family",
-    difficulty: 1,
-    notes: "'Te quiero' is more common between family/friends; 'Te amo' is romantic/deep.",
-  },
-
-  // Work extra
-  {
-    id: "w9",
-    english: "I'll get back to you tomorrow.",
-    spanish: "Te respondo mañana.",
-    alternates: ["Te contesto mañana."],
-    category: "work",
-    difficulty: 1,
-  },
-  {
-    id: "w10",
-    english: "We didn't reach an agreement.",
-    spanish: "No llegamos a un acuerdo.",
-    category: "work",
-    difficulty: 2,
-  },
-
-  // Daily extra
-  {
-    id: "d9",
-    english: "I'm tired.",
-    spanish: "Estoy cansado.",
-    category: "daily",
-    difficulty: 1,
-  },
-  {
-    id: "d10",
-    english: "What time is it?",
-    spanish: "¿Qué hora es?",
-    category: "daily",
-    difficulty: 1,
-  },
-  {
-    id: "d11",
-    english: "I don't understand.",
-    spanish: "No entiendo.",
-    category: "daily",
-    difficulty: 1,
-  },
-  {
-    id: "d12",
-    english: "Can you repeat that?",
-    spanish: "¿Puedes repetir?",
-    argentine: "¿Podés repetir?",
-    category: "daily",
-    difficulty: 1,
-  },
 ];
 
 export const CATEGORY_META: Record<Category, { label: string; emoji: string; color: string }> = {
   family: { label: "Family", emoji: "👨‍👩‍👧", color: "text-pink-400" },
   work: { label: "Work / M&A", emoji: "💼", color: "text-blue-400" },
-  ba_travel: { label: "Buenos Aires", emoji: "🇦🇷", color: "text-sun-arg" },
+  ba_travel: { label: "Travel", emoji: "✈️", color: "text-sun-arg" },
   daily: { label: "Daily", emoji: "☕", color: "text-gray-300" },
   dealmaking: { label: "Dealmaking", emoji: "🤝", color: "text-accent-green" },
 };

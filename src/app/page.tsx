@@ -71,7 +71,7 @@ export default function Home() {
           >
             Español <span className="text-sun-arg">Ahora</span>
           </button>
-          <p className="text-gray-400 text-sm mt-1">Buenos Aires or bust. ¡Vamos!</p>
+          <p className="text-gray-400 text-sm mt-1">En casa. En México. En todas partes.</p>
         </div>
         <div className="text-right">
           <div className="text-xs uppercase tracking-widest text-gray-500">Today</div>
