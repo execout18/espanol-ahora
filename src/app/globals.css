@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0A0E1A;
+  --foreground: #F9FAFB;
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+}
+
+@layer components {
+  .card {
+    @apply bg-ink-800 border border-ink-700 rounded-2xl p-6 shadow-xl;
+  }
+  .btn-primary {
+    @apply bg-sun-arg hover:bg-yellow-400 text-ink-900 font-bold py-3 px-6 rounded-xl transition-colors;
+  }
+  .btn-secondary {
+    @apply bg-ink-700 hover:bg-ink-700/80 text-white font-semibold py-2 px-4 rounded-xl transition-colors;
+  }
+  .stat-number {
+    @apply text-5xl font-black tracking-tight;
+  }
+  .stat-label {
+    @apply text-xs uppercase tracking-widest text-gray-400 font-semibold;
+  }
+}
