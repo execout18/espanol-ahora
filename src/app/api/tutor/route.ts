@@ -85,16 +85,24 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { messages, mode = "onboarding" } = body as {
+    const { messages, mode = "onboarding", translate = true } = body as {
       messages: Array<{ role: "user" | "assistant"; content: string }>;
       mode?: TutorMode;
+      translate?: boolean;
     };
 
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json({ error: "Invalid messages format" }, { status: 400 });
     }
 
-    const systemPrompt = `${BASE_CONTEXT}\n\n${MODE_INSTRUCTIONS[mode]}`;
+    // In onboarding mode, the user can toggle translations off for a challenge
+    // without leaving onboarding's simple-vocab/short-sentence constraints
+    const translationOverride =
+      mode === "onboarding" && !translate
+        ? `\n\nOVERRIDE: Translations are turned OFF for this exchange. Reply in Spanish ONLY — no English translation line. Keep all other onboarding constraints (short sentences, simple vocabulary, present/past tenses). The user wants the challenge of Spanish-only at the easy level.`
+        : "";
+
+    const systemPrompt = `${BASE_CONTEXT}\n\n${MODE_INSTRUCTIONS[mode]}${translationOverride}`;
 
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 

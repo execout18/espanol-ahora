@@ -38,9 +38,11 @@ const MODE_META: Record<TutorMode, { label: string; emoji: string; description: 
 };
 
 const MODE_STORAGE_KEY = "ea_tutor_mode";
+const TRANSLATE_STORAGE_KEY = "ea_tutor_translate";
 
 export default function TutorChat({ onComplete }: Props) {
   const [mode, setMode] = useState<TutorMode>("onboarding");
+  const [translate, setTranslate] = useState(true);
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -55,6 +57,10 @@ export default function TutorChat({ onComplete }: Props) {
     const saved = localStorage.getItem(MODE_STORAGE_KEY) as TutorMode | null;
     if (saved && (saved === "onboarding" || saved === "build" || saved === "ba_prep")) {
       setMode(saved);
+    }
+    const savedTranslate = localStorage.getItem(TRANSLATE_STORAGE_KEY);
+    if (savedTranslate === "false") {
+      setTranslate(false);
     }
     setInitialized(true);
   }, []);
@@ -99,7 +105,7 @@ export default function TutorChat({ onComplete }: Props) {
       const res = await fetch("/api/tutor", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: newMessages, mode: useMode }),
+        body: JSON.stringify({ messages: newMessages, mode: useMode, translate }),
       });
 
       if (!res.ok) {
@@ -213,6 +219,33 @@ export default function TutorChat({ onComplete }: Props) {
           );
         })}
       </div>
+
+      {/* Translation toggle (onboarding mode only) */}
+      {mode === "onboarding" && (
+        <div className="flex items-center justify-between mb-3 px-3 py-2 bg-ink-900 border border-ink-700 rounded-xl">
+          <div className="flex items-center gap-2">
+            <span className="text-xs">🇬🇧</span>
+            <span className="text-xs text-gray-300 font-medium">Show English translations</span>
+          </div>
+          <button
+            onClick={() => {
+              const next = !translate;
+              setTranslate(next);
+              localStorage.setItem(TRANSLATE_STORAGE_KEY, String(next));
+            }}
+            className={`relative w-11 h-6 rounded-full transition-colors ${
+              translate ? "bg-accent-green" : "bg-ink-700"
+            }`}
+            aria-label="Toggle translations"
+          >
+            <div
+              className={`absolute top-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
+                translate ? "translate-x-5" : "translate-x-0.5"
+              }`}
+            />
+          </button>
+        </div>
+      )}
 
       {/* Messages */}
       <div
